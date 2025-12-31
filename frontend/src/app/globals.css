@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 0 0% 3.9%;
+    
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Brand color variables and helper classes for About and Admin pages */
+:root {
+  --brand-bg: #E3F2FD;
+  --brand-text: #0D47A1;
+  --brand-accent: #BBDEFB;
+  --brand-footer: #0D47A1;
+  --brand-border: #0D47A1;
+  --brand-button-bg: #BBDEFB;
+}
+
+/* Apply brand colors inside pages that use the about-theme wrapper */
+.about-theme {
+  color: var(--brand-text);
+}
+.about-theme h1,
+.about-theme h2,
+.about-theme h3,
+.about-theme h4,
+.about-theme h5 {
+  color: var(--brand-text);
+}
+
+/* Generic brand theme usable on any page (admin, about, etc.) */
+.brand-theme {
+  background-color: var(--brand-bg);
+  color: var(--brand-text);
+}
+.brand-theme h1,
+.brand-theme h2,
+.brand-theme h3,
+.brand-theme h4,
+.brand-theme h5 {
+  color: var(--brand-text);
+}
+
+/* Ensure common gray utility text inside about-theme uses brand text */
+.about-theme .text-gray-600,
+.about-theme .text-gray-700,
+.about-theme .text-gray-500,
+.about-theme .text-gray-400 {
+  color: var(--brand-text) !important;
+}
+
+.about-theme .card-accent {
+  background-color: var(--brand-accent);
+  color: var(--brand-text);
+}
+
+.button-brand {
+  background-color: var(--brand-button-bg);
+  color: var(--brand-text);
+}
+
+.input-brand {
+  border-color: var(--brand-border) !important;
+  color: var(--brand-text) !important;
+}
+
+.textarea-brand {
+  border: 1px solid var(--brand-border) !important;
+  color: var(--brand-text) !important;
+}
+
+.footer-brand {
+  background-color: var(--brand-footer);
+  color: #fff;
+}

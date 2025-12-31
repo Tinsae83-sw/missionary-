@@ -1,0 +1,185 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Connection URL is now configured in prisma.config.ts
+}
+
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  password     String
+  role         String    @default("user") @db.VarChar(50)
+  avatar       String?
+  lastLogin    DateTime? @map("last_login")
+  isActive     Boolean   @default(true) @map("is_active")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+  deletedAt    DateTime? @map("deleted_at")
+  blogs        Blog[]
+  
+  @@map("users")
+}
+
+model Blog {
+  id             String   @id @default(uuid())
+  title          String
+  content        String
+  slug           String?  @unique
+  excerpt        String?
+  featuredImage  String?  @map("featured_image")
+  status         String   @default("draft")
+  publishedAt    DateTime? @map("published_at")
+  authorId       String   @map("author_id")
+  author         User     @relation(fields: [authorId], references: [id])
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at")
+  
+  @@map("blogs")
+}
+
+model Sermon {
+  id            String   @id @default(uuid())
+  title         String   @db.VarChar(255)
+  speaker       String   @db.VarChar(255)
+  slug          String?  @unique
+  biblePassage  String?  @map("bible_passage") @db.VarChar(100)
+  sermonDate    DateTime @map("sermon_date") @db.Date
+  description   String?
+  audioUrl      String?  @map("audio_url")
+  videoUrl      String?  @map("video_url")
+  thumbnailUrl  String?  @map("thumbnail_url")
+  duration      Int?     @default(0)
+  viewCount     Int      @default(0) @map("view_count")
+  isPublished   Boolean  @default(false) @map("is_published")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  
+  @@map("sermons")
+}
+
+model Ministry {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?  @map("image_url")
+  leader      String?
+  contact     String?
+  isActive    Boolean  @default(true) @map("is_active")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("ministries")
+}
+
+model Event {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  startDate   DateTime @map("start_date")
+  endDate     DateTime? @map("end_date")
+  location    String?
+  imageUrl    String?  @map("image_url")
+  isFeatured  Boolean  @default(false) @map("is_featured")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("events")
+}
+
+model ChurchInfo {
+  id          String   @id @default(uuid())
+  name        String
+  address     String?
+  phone       String?
+  email       String?
+  about       String?
+  logoUrl     String?  @map("logo_url")
+  facebookUrl String?  @map("facebook_url")
+  twitterUrl  String?  @map("twitter_url")
+  instagramUrl String? @map("instagram_url")
+  youtubeUrl  String?  @map("youtube_url")
+  serviceTimes String? @map("service_times") @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("church_info")
+}
+
+model PastorInfo {
+  id          String   @id @default(uuid())
+  name        String
+  title       String
+  bio         String?  @db.Text
+  imageUrl    String?  @map("image_url")
+  email       String?
+  phone       String?
+  isActive    Boolean  @default(true) @map("is_active")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("pastor_info")
+}
+
+model Belief {
+  id          String   @id @default(uuid())
+  title       String
+  description String?  @db.Text
+  icon        String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("beliefs")
+}
+
+model CoreValue {
+  id          String   @id @default(uuid())
+  title       String
+  description String?  @db.Text
+  icon        String?
+  order       Int      @default(0)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("core_values")
+}
+
+model MissionVision {
+  id          String   @id @default(uuid())
+  mission     String?  @db.Text
+  vision      String?  @db.Text
+  purpose     String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("mission_vision")
+}
+
+model ChurchHistory {
+  id          String   @id @default(uuid())
+  year        Int
+  title       String
+  description String?  @db.Text
+  imageUrl    String?  @map("image_url")
+  order       Int      @default(0)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  
+  @@map("church_history")
+}
